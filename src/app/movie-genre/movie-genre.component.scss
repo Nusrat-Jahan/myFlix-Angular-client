@@ -1,0 +1,22 @@
+.genre-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.genre-title{
+  margin: auto;
+}
+// Tablet
+@media all and (min-width: 768px) {
+  .genre-container {
+    max-width: 400px;
+  }
+}
+
+// Desktop
+@media all and (min-width: 768px) {
+  .genre-container {
+    max-width: 600px;
+  }
+}
