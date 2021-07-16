@@ -24,12 +24,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class MovieCardComponent {
   movies: any[] = [];
   favoriteMovieIds: any[] = [];
-  favoriteMoviesArray: string[] = [];
 
   constructor(
     public fetchApiData: GetAllMoviesService,
     public addFavMovie: AddFavoriteMovieService,
-    public fetchdeleteFavoriteMovie: DeleteFavoriteMovieService,
+    public deleteMovies: DeleteFavoriteMovieService,
     public fetchUser: GetUserService,
     public dialog: MatDialog,
     public snackBar: MatSnackBar,) { }
@@ -37,12 +36,12 @@ export class MovieCardComponent {
 
   ngOnInit(): void {
     this.getMovies();
-    // this.getFavoriteMovies();
+    this.getFavoriteMovies();
   }
 
   getMovies(): void {
-    this.fetchApiData.getAllMovies().subscribe((resp: any) => {
-      this.movies = resp;
+    this.fetchApiData.getAllMovies().subscribe((response: any) => {
+      this.movies = response;
       console.log(this.movies);
       return this.movies;
     });
@@ -52,7 +51,6 @@ export class MovieCardComponent {
       width: '580px',
       data: { name, description },
     });
-    // console.log(this.genre);
   }
   showDirectorDialog(name: string, bio: string, birth: Date, death: Date): void {
     this.dialog.open(MovieDirectorComponent, {
@@ -61,79 +59,50 @@ export class MovieCardComponent {
     });
   }
 
-  showDescriptionDialog(title: string, ImagePath: string, description: string, director: string, genre: string): void {
+  showDescriptionDialog(title: string, ImagePath: string, description: string, director: string, genre: string, releaseYear: number, imdbRating: number): void {
     this.dialog.open(MovieDescriptionComponent, {
       width: '580px',
-      data: { title, ImagePath, description, director, genre },
+      data: { title, ImagePath, description, director, genre, releaseYear, imdbRating },
+    });
+  }
+  // checks if movie is in user's list of favorites
+  getFavoriteMovies(): void {
+    this.fetchUser.getUser().subscribe((response: any) => {
+      this.favoriteMovieIds = response.FavoriteMovies;
+      return this.favoriteMovieIds;
     });
   }
 
-  /**
-  * check if movie is in favorites
-  **/
-  // getFavoriteMovies(): void {
-  //   this.fetchUser.getUser().subscribe((resp: any) => {
-  //     this.favoriteMovieIds = resp.favoriteMovies;
-  //   });
-  // }
 
-  /**
-* Adds or removes movie from user's list of favorites
-* @param MovieID
-* @returns
-*/
-  // isFavorite(MovieID: string): boolean {
-  //   let favoriteMovies = localStorage.getItem('FavoriteMovies');
-  //   if (favoriteMovies !== null)
-  //     this.favoriteMoviesArray = JSON.parse(favoriteMovies);
-  //   return this.favoriteMoviesArray.includes(MovieID);
-  // }
-  isFavorite(MovieID: string): boolean {
-    // console.log("Movie ID " + movieID + "favorite check");
-    return this.favoriteMovieIds.includes(MovieID);
+  // checks if movie is in user's list of favorites
+  isFavorite(movieID: string): boolean {
+    // console.log("Movie ID " + movieID);
+    const favmovie = this.favoriteMovieIds.includes(movieID);
+    // console.log(this.favoriteMovieIds);
+    // console.log(favmovie, movieID);
+    return favmovie;
   };
 
-  /**
-   * Adds or removes movie from user's list of favorites
-   * @param id
-   * @returns
-   */
-  // onToggleFavoriteMovie(_id: string): any {
-  //   if (this.isFavorite(_id)) {
-  //     this.fetchdeleteFavoriteMovie.deleteFavoriteMovie(_id).subscribe((resp: any) => {
-  //       // localStorage.setItem('FavoriteMovies', JSON.stringify(resp.FavoriteMovies))
-  //       this.snackBar.open('Removed from favorites!', 'OK', {
-  //         duration: 2000,
-  //       });
-  //     });
-  //     const index = this.favoriteMovieIds.indexOf(_id);
-  //     return this.favoriteMovieIds.splice(index, 1);
-  //   } else {
-  //     this.addFavMovie.addFavoriteMovie(_id).subscribe((resp: any) => {
-  //       // localStorage.setItem('FavoriteMovies', JSON.stringify(resp.FavoriteMovies));
-  //       this.snackBar.open('Added to favorites!', 'OK', {
-  //         duration: 2000,
-  //       });
-  //     });
-  //   }
-  //   return this.favoriteMovieIds.push(_id);
-  // }
-  onToggleFavoriteMovie(MovieID: string): any {
-    if (this.isFavorite(MovieID)) {
-      this.fetchdeleteFavoriteMovie.deleteFavoriteMovie(MovieID).subscribe((resp: any) => {
+
+  // Adds or removes movie from user's list of favorites
+  onToggleFavoriteMovie(id: string): any {
+    if (this.isFavorite(id)) {
+      this.deleteMovies.deleteFavoriteMovie(id).subscribe((response: any) => {
+        // this.getFavoriteMovies;
         this.snackBar.open('Removed from favorites!', 'OK', {
           duration: 2000,
         });
       });
-      const index = this.favoriteMovieIds.indexOf(MovieID);
+      const index = this.favoriteMovieIds.indexOf(id);
       return this.favoriteMovieIds.splice(index, 1);
     } else {
-      this.addFavMovie.addFavoriteMovie(MovieID).subscribe((resp: any) => {
+      this.addFavMovie.addFavoriteMovie(id).subscribe((response: any) => {
+        // this.getFavoriteMovies;
         this.snackBar.open('Added to favorites!', 'OK', {
           duration: 2000,
         });
       });
     }
-    return this.favoriteMovieIds.push(MovieID);
+    return this.favoriteMovieIds.push(id);
   }
 }
