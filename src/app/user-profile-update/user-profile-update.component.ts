@@ -10,7 +10,7 @@ import { GetUserService, EditUserService } from '../fetch-api-data.service';
   styleUrls: ['./user-profile-update.component.scss']
 })
 export class UserProfileUpdateComponent implements OnInit {
-  @Input() userData = { Username: '', Email: '', Birthdate: '' };
+  @Input() userData = { Username: '', Password: '', Email: '', Birthdate: '' };
   // user: any = {};
 
   constructor(
@@ -36,16 +36,15 @@ export class UserProfileUpdateComponent implements OnInit {
       this.snackBar.open('Profile updated!', 'OK', {
         duration: 2000,
       });
-      this.data.onSuccess();
     }, response => {
       console.log(response);
       this.snackBar.open(response, 'OK', {
         duration: 2000,
       });
     });
-    // setTimeout(function () {
-    //   window.location.reload();
-    // }, 1000);
+    setTimeout(function () {
+      window.location.reload();
+    }, 1000);
   }
 
 }
