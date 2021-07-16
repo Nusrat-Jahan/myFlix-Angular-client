@@ -20,6 +20,8 @@ export class MovieDescriptionComponent implements OnInit {
       description: string;
       director: string;
       genre: string;
+      releaseYear: number;
+      imdbRating: number;
     }
 
   ) { }
