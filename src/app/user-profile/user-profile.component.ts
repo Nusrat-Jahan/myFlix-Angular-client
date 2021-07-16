@@ -27,7 +27,7 @@ export class UserProfileComponent implements OnInit {
   user: any = {};
   movies: any = [];
   favorites: any = [];
-
+  // isLoaded = false;
   /**
    * @param fetchApiData
    * @param dialog
@@ -51,13 +51,12 @@ export class UserProfileComponent implements OnInit {
    * User Profile details
    **/
   getUser(): void {
+    const user = localStorage.getItem('user');
     this.fetchApiData.getUser().subscribe((response: any) => {
       this.user = response;
-      // this.favouriteMovies = this.movies.filter((movie: any) => this.user.FavouriteMovies.includes(movie._id));
+      this.getMovies();
       console.log(this.user);
-      // console.log(this.favouriteMovies);
       return this.user;
-      // this.favouriteMovies;
     });
   }
 
@@ -73,37 +72,29 @@ export class UserProfileComponent implements OnInit {
   /**
   * Delete Profile
   **/
-  deleteUser(): void {
+  deleteUserDialog(): void {
     this.dialog.open(UserProfileDeleteComponent);
   }
-
-  /**
-   * retrieve all favorited movies
-   */
+  //  get user favorite movie
   getMovies(): void {
     this.fetchMovies.getAllMovies().subscribe((res: any) => {
       this.movies = res;
       this.filterFavorites();
     });
   }
-
-  /**
-   * removes movie from user's list of favorites
-   * @param movie_id
-   * @returns
-   */
+  // filtering user favorite movie
   filterFavorites(): void {
     this.movies.forEach((movie: any) => {
       if (this.user.FavoriteMovies.includes(movie._id)) {
         this.favorites.push(movie);
       }
     });
+    // this.isLoaded = true;
+    // console.log(this.isLoaded);
     return this.favorites;
-  }
 
-  /**
-   * delete favorites from user
-   */
+  }
+  // deleting user favorite movie
   deleteFavorites(id: string, title: string): void {
     this.deleteMovies.deleteFavoriteMovie(id).subscribe(() => {
       this.snackBar.open(`${title} has been removed from your favorites!`, 'OK', {
@@ -114,5 +105,4 @@ export class UserProfileComponent implements OnInit {
       }, 2000);
     });
   }
-
 }
