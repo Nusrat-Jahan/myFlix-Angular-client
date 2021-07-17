@@ -1,47 +1,51 @@
 <app-nav-bar></app-nav-bar>
-<div class="movie-card-container" fxLayout=" row wrap">
-  <mat-card class="movie-card-wrapper" *ngFor="let movie of movies;" fxLayout="row wrap">
-    <mat-card-header>
-      <mat-card-title>{{movie.Title}}</mat-card-title>
-      <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
-    </mat-card-header>
-    <img src={{movie.ImagePath}} alt={{movie.Title}} />
-    <mat-card-actions class="movie-card-actions-container">
-      <button mat-button color="primary" (click)="showGenreDialog(
-        movie.Genre.Name, 
-        movie.Genre.Description
-        )">
-        Genre
-      </button>
-      <button mat-button color="primary" (click)="showDirectorDialog(
-        movie.Director.Name, 
-        movie.Director.Bio,
-        movie.Director.Birth,
-        movie.Director.Death
-        )">
-        Director
-      </button>
-      <button mat-button color="primary" (click)="showDescriptionDialog(
-        movie.Title,
-        movie.ImagePath,
-        movie.Description,
-        movie.Director.Name,
-        movie.Genre.Name,
-        movie.ReleaseYear,
-        movie.ImdbRating
-        )">
-        Description
-      </button>
+<div class="movie-card-container">
+  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+    <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let movie of movies;">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{movie.Title}}</mat-card-title>
+          <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src={{movie.ImagePath}} alt={{movie.Title}} />
+        <mat-card-actions class="movie-card-actions-container">
+          <button mat-button color="primary" (click)="showGenreDialog(
+          movie.Genre.Name, 
+          movie.Genre.Description
+          )">
+            Genre
+          </button>
+          <button mat-button color="primary" (click)="showDirectorDialog(
+          movie.Director.Name, 
+          movie.Director.Bio,
+          movie.Director.Birth,
+          movie.Director.Death
+          )">
+            Director
+          </button>
+          <button mat-button color="primary" (click)="showDescriptionDialog(
+          movie.Title,
+          movie.ImagePath,
+          movie.Description,
+          movie.Director.Name,
+          movie.Genre.Name,
+          movie.ReleaseYear,
+          movie.ImdbRating
+          )">
+            Description
+          </button>
 
-      <!-- favorites button -->
-      <button matTooltip="Favorite movie" matTooltipPosition="above" mat-icon-button
-        aria-label="Adds movie to user's list of favorites" (click)="onToggleFavoriteMovie(movie._id)">
-        <mat-icon color="warn">
-          <span *ngIf="isFavorite(movie._id); else elseBlock">favorite</span>
-          <ng-template #elseBlock>favorite_border</ng-template>
-        </mat-icon>
-      </button>
+          <!-- favorites button -->
+          <button matTooltip="Favorite movie" matTooltipPosition="above" mat-icon-button
+            aria-label="Adds movie to user's list of favorites" (click)="onToggleFavoriteMovie(movie._id)">
+            <mat-icon color="warn">
+              <span *ngIf="isFavorite(movie._id); else elseBlock">favorite</span>
+              <ng-template #elseBlock>favorite_border</ng-template>
+            </mat-icon>
+          </button>
 
-    </mat-card-actions>
-  </mat-card>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
 </div>
