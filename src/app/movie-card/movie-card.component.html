@@ -1,6 +1,6 @@
 <app-nav-bar></app-nav-bar>
 <div class="movie-card-container">
-  <div fxLayout="row wrap" fxLayoutGap="16px grid">
+  <div fxLayout="row wrap" fxLayoutGap="20px grid">
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let movie of movies;">
       <mat-card>
         <mat-card-header>
@@ -8,7 +8,7 @@
           <mat-card-subtitle>Directed by: {{movie.Director.Name}}</mat-card-subtitle>
         </mat-card-header>
         <img mat-card-image src={{movie.ImagePath}} alt={{movie.Title}} />
-        <mat-card-actions class="movie-card-actions-container">
+        <mat-card-actions class=" movie-card-actions-container">
           <button mat-button color="primary" (click)="showGenreDialog(
           movie.Genre.Name, 
           movie.Genre.Description
