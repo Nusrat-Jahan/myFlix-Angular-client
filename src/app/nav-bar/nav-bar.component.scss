@@ -61,3 +61,29 @@ button {
     padding: 5px;
   }
  }
+ @media (min-width:321px) and (max-width:480px) {
+  .app-title {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-left: 0%;
+  }
+  .nav-links {
+    margin-right: 2px;
+  }
+  button{
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 600;
+  }
+  .mat-button{
+    width: fit-content !important;;
+  }
+  .nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px;
+  }
+ }
