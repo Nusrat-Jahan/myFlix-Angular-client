@@ -32,3 +32,27 @@ button {
 .nav-links {
   margin-right: 30px;
 }
+
+@media (max-width: 576px) {
+  .app-title {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+  .nav-links {
+    margin-right: 10px;
+  }
+  button{
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #fff;
+    font-weight: 600;
+    margin-right: 0%;
+  }
+  .nav-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 5px;
+  }
+ }
