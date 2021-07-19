@@ -1,5 +1,12 @@
 # MyFlixAngularClient
 
+## Project Description
+This project is an Angular application that allows users to sign up, log in and get information about movies, genres, and directors. It also allows user to update their account information, add movies in their list of favorites and remove movies from their list of favorites. This application uses an existing server-side REST API and MongoDB database.
+
+![myFlix-angular-demo-pic2](https://user-images.githubusercontent.com/23428563/126185682-f7e90830-9adf-4b8c-ae45-49381234a601.PNG)
+![myFlix-angular-demo-pic](https://user-images.githubusercontent.com/23428563/126184391-9d2d10fb-b0e6-4603-94bd-c738b901a29d.PNG)
+![myFlix-angular-demo-pic1](https://user-images.githubusercontent.com/23428563/126185462-21fd712a-94e3-45de-99b8-332434108da1.PNG)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
 
 ## Development server
