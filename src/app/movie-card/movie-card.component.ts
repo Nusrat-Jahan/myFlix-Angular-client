@@ -21,6 +21,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.scss']
 })
+
+/**
+ * This component will render movie data.
+ */
 export class MovieCardComponent {
   movies: any[] = [];
   favoriteMovieIds: any[] = [];
@@ -33,12 +37,18 @@ export class MovieCardComponent {
     public dialog: MatDialog,
     public snackBar: MatSnackBar,) { }
 
-
+  /**
+   * This method will run the getMovies and getFavoriteMovies method after the MovieCard Component is initialised and rendered.
+   * @returns array of movies and favorite movies objects.
+   */
   ngOnInit(): void {
     this.getMovies();
     this.getFavoriteMovies();
   }
 
+  /**
+   * This method will get all movies
+   */
   getMovies(): void {
     this.fetchApiData.getAllMovies().subscribe((response: any) => {
       this.movies = response;
@@ -46,12 +56,26 @@ export class MovieCardComponent {
       return this.movies;
     });
   }
+
+  /**
+   * Opens modal with movie genre details
+   * @param name
+   * @param description
+   */
   showGenreDialog(name: string, description: string): void {
     this.dialog.open(MovieGenreComponent, {
       width: '580px',
       data: { name, description },
     });
   }
+
+  /**
+   * Opens modal with movie Director details
+   * @param name
+   * @param bio
+   * @param birth
+   * @param death
+   */
   showDirectorDialog(name: string, bio: string, birth: Date, death: Date): void {
     this.dialog.open(MovieDirectorComponent, {
       width: '580px',
@@ -59,13 +83,26 @@ export class MovieCardComponent {
     });
   }
 
+  /**
+   * Opens modal with movie Description details
+   * @param title
+   * @param ImagePath
+   * @param description
+   * @param director
+   * @param genre
+   * @param releaseYear
+   * @param imdbRating
+   */
   showDescriptionDialog(title: string, ImagePath: string, description: string, director: string, genre: string, releaseYear: number, imdbRating: number): void {
     this.dialog.open(MovieDescriptionComponent, {
       width: '580px',
       data: { title, ImagePath, description, director, genre, releaseYear, imdbRating },
     });
   }
-  // checks if movie is in user's list of favorites
+
+  /** 
+   *  checks if movie is in user's list of favorites
+   */
   getFavoriteMovies(): void {
     this.fetchUser.getUser().subscribe((response: any) => {
       this.favoriteMovieIds = response.FavoriteMovies;
@@ -73,8 +110,9 @@ export class MovieCardComponent {
     });
   }
 
-
-  // checks if movie is in user's list of favorites
+  /** 
+   *  checks if movie is in user's list of favorites
+   */
   isFavorite(movieID: string): boolean {
     // console.log("Movie ID " + movieID);
     const favmovie = this.favoriteMovieIds.includes(movieID);
@@ -84,7 +122,11 @@ export class MovieCardComponent {
   };
 
 
-  // Adds or removes movie from user's list of favorites
+  /** 
+   * Adds or removes movie from user's list of favorites
+   * @param id
+   */
+
   onToggleFavoriteMovie(id: string): any {
     if (this.isFavorite(id)) {
       this.deleteMovies.deleteFavoriteMovie(id).subscribe((response: any) => {

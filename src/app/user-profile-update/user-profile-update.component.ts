@@ -9,10 +9,22 @@ import { GetUserService, EditUserService } from '../fetch-api-data.service';
   templateUrl: './user-profile-update.component.html',
   styleUrls: ['./user-profile-update.component.scss']
 })
+
+/**
+ * This component will render the Update User Profile form.
+ */
 export class UserProfileUpdateComponent implements OnInit {
   @Input() userData = { Username: '', Password: '', Email: '', Birthdate: '' };
   // user: any = {};
 
+  /**
+   * @param data
+   * @param fetchApiData
+   * @param fetchUser
+   * @param fetchEditUser
+   * @param dialogRef
+   * @param snackBar
+   */
   constructor(
     @Inject(MAT_DIALOG_DATA)
     public data: { onSuccess: () => void },
@@ -26,7 +38,7 @@ export class UserProfileUpdateComponent implements OnInit {
   }
 
   /**
-   * Function sending user profile form input to database to update user account details, then updates user profile in app
+   * This method will will send input data to database and will upadate user account details
    */
   editUser(): void {
     this.fetchEditUser.editUser(this.userData).subscribe((response) => {

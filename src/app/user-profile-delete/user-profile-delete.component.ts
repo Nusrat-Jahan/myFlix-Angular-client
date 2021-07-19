@@ -9,8 +9,18 @@ import { DeleteUserService } from '../fetch-api-data.service';
   templateUrl: './user-profile-delete.component.html',
   styleUrls: ['./user-profile-delete.component.scss']
 })
+
+/**
+ * This component will render the delete User Profile.
+ */
 export class UserProfileDeleteComponent implements OnInit {
 
+  /**
+   * @param fetchDeleteUser
+   * @param dialogRef
+   * @param snackBar
+   * @param router
+   */
   constructor(
     public fetchDeleteUser: DeleteUserService,
     public dialogRef: MatDialogRef<UserProfileDeleteComponent>,
